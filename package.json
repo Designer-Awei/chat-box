@@ -9,9 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "mammoth": "^1.12.0",
     "next": "16.2.9",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "word-extractor": "^1.0.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

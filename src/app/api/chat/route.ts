@@ -1,3 +1,5 @@
+import { hasVisionContent } from "@/lib/chat";
+import { withKnowledgeBasePrompt } from "@/lib/knowledge-prompt";
 import { createChatCompletionStream } from "@/lib/siliconflow";
 import type { ChatRequestBody } from "@/types/chat";
 
@@ -12,7 +14,15 @@ export async function POST(request: Request) {
       return Response.json({ error: "消息不能为空" }, { status: 400 });
     }
 
-    const upstream = await createChatCompletionStream(body.messages);
+    if (hasVisionContent(body.messages)) {
+      return Response.json(
+        { error: "知识库助手仅支持基于文档内容的文字问答，不支持图片分析。" },
+        { status: 400 },
+      );
+    }
+
+    const messages = await withKnowledgeBasePrompt(body.messages);
+    const upstream = await createChatCompletionStream(messages);
 
     if (!upstream.ok || !upstream.body) {
       const errorText = await upstream.text();

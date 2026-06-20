@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI 聊天室",
-  description: "基于 Next.js 与硅基流动大模型的 AI 问答聊天室",
+  title: "知识库助手",
+  description: "基于 knowledge-base 资料回答问题的 AI 助手",
 };
 
 export default function RootLayout({
